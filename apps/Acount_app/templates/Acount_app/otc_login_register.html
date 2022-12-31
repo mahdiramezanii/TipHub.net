@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+<html lang="en">
+
+{% block content %}
+    {% block titel %}
+        <title>
+        ورود و ثبت نام
+        </title>
+    {% endblock %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-sm-9 col-md-7 col-lg-5">
+                    <div class="custom-bg p-2">
+
+                        <div class="my-3 text-center">ورود به حساب کاربری</div>
+                        {% if form.phone.errors %}
+                            {% for erorr in form.phone.errors %}
+
+                            <div class="my-3 text-center alert-danger form-control">{{ erorr }}</div>
+                            {% endfor %}
+
+                        {% endif %}
+                        <form class="" method="post">
+                            {% csrf_token %}
+                            <div class="field">
+                                <i class="fa fa-envelope"></i>
+                                {{ form.phone }}
+
+                            </div>
+
+
+
+                            <div class="my-3">
+                                <button class="btn custom-btn w-100">ورود</button>
+                            </div>
+                            <div class="pb-2 border-bottom">
+                                <span class="small">حساب کاربری ندارید؟</span>
+                                <a href="{% url "Acount_app:Register" %}" class="small">
+                                    عضویت در سایت
+                                </a>
+                            </div>
+                        </form>
+
+
+                        <div class="">
+                            <p class="small text-center my-3">ورود از طریق حساب‌های کاربری دیگر</p>
+                            <div class="">
+
+                                <div class="social-accunt">
+
+                                    <a title="Google" class="" href="{% provider_login_url 'google' %}">
+                                        <img height="24" src="{% static "assets/image/google.svg" %}"
+                                             class="d-block m-auto">
+                                    </a>
+
+                                    <a title="GitHub" class="" href={% provider_login_url 'github' %}>
+                                        <img height="24" src="{% static "assets/image/github.svg" %}"
+                                             class="d-block m-auto">
+                                    </a>
+
+                                    <a title="LinkedIn" class="" href="">
+                                        <img height="24" src="{% static "assets/image/linkedin.svg" %}"
+                                             class="d-block m-auto">
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+
+{% endblock %}
+</body>
+
+</html>

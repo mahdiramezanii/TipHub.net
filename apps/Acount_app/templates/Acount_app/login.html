@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+<html lang="en">
+
+{% block content %}
+    {% block titel %}
+        <title>
+            ورود
+        </title>
+    {% endblock %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-sm-9 col-md-7 col-lg-5">
+                    <div class="custom-bg p-2">
+
+                        <div class="my-3 text-center">ورود به حساب</div>
+                        {% if form.non_field_errors %}
+                            {% for erorr in form.non_field_errors %}
+
+                                <div class="my-3 text-center alert-danger form-control">{{ erorr }}</div>
+                            {% endfor %}
+
+                        {% endif %}
+
+                        {% if form.username.errors %}
+                            {% for erorr in form.username.errors %}
+
+                                <div class="my-3 text-center alert-danger form-control">{{ erorr }}</div>
+                            {% endfor %}
+
+                        {% endif %}
+
+                        <form class="" method="post">
+                            {% csrf_token %}
+                            <div class="field">
+                                <i class="fa fa-envelope"></i>
+                                {{ form.username }}
+
+                            </div>
+
+                            <div class="field">
+                                <i class="fa fa-lock"></i>
+                                {{ form.password }}
+                            </div>
+                            <div class="mr-1 d-flex justify-content-between">
+                                <div>
+
+                                    <label class="small">نمایش گذرواژه</label>
+                                </div>
+                                <div>
+                                    <a href="{% url "Acount_app:password_reset" %}" class="small">رمز عبور خود را فراموش
+                                        کرده اید؟</a>
+                                </div>
+
+                            </div>
+
+                            <div class="my-3">
+                                <button class="btn custom-btn w-100">ورود</button>
+                            </div>
+                            <div class="pb-2 border-bottom">
+                                <span class="small">حساب کاربری ندارید؟</span>
+                                <a href="{% url "Acount_app:Register" %}" class="small">
+                                    عضویت در سایت
+                                </a>
+                            </div>
+                        </form>
+
+
+                        <div class="">
+                            <p class="small text-center my-3">ورود از طریق حساب‌های کاربری دیگر</p>
+                            <div class="">
+
+                                <div class="social-accunt">
+
+
+                                        <a title="Google" class="" onclick="submit_google()">
+                                            <img height="24" src="{% static "assets/image/google.svg" %}"
+                                                 class="d-block m-auto">
+                                        </a>
+
+                                    <a title="GitHub" class="" onclick="submit_github()">
+                                        <img height="24" src="{% static "assets/image/github.svg" %}"
+                                             class="d-block m-auto">
+                                    </a>
+
+                                    <a title="LinkedIn" class="">
+                                        <img height="24" src="{% static "assets/image/linkedin.svg" %}"
+                                             class="d-block m-auto">
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+   <form action="/accounts/google/login/" method="post" id="google_form">
+        {% csrf_token %}
+    </form>
+    <script>
+function submit_google() {
+    document.getElementById("google_form").submit();
+}
+    </script>
+
+
+
+    <form action="/accounts/github/login/" method="post" id="github_form">
+        {% csrf_token %}
+    </form>
+    <script>
+function submit_github() {
+    document.getElementById("github_form").submit();
+}
+    </script>
+
+
+{% endblock %}
+</body>
+
+</html>
